@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Robotics AI Assistant</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:#fff;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+#chatbox{
+    width:380px;
+    height:520px;
+    background:#020617;
+    border-radius:15px;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    box-shadow:0 0 20px rgba(0,255,255,0.3);
+}
+#header{
+    background:#06b6d4;
+    padding:15px;
+    text-align:center;
+    font-weight:bold;
+    font-size:18px;
+}
+#messages{
+    flex:1;
+    padding:10px;
+    overflow-y:auto;
+}
+.msg{
+    margin:8px 0;
+    padding:10px;
+    border-radius:10px;
+    max-width:80%;
+}
+.user{
+    background:#2563eb;
+    align-self:flex-end;
+}
+.bot{
+    background:#334155;
+    align-self:flex-start;
+}
+#inputArea{
+    display:flex;
+    border-top:1px solid #334155;
+}
+#inputArea input{
+    flex:1;
+    padding:10px;
+    border:none;
+    outline:none;
+}
+#inputArea button{
+    padding:10px;
+    background:#06b6d4;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<div id="chatbox">
+    <div id="header">🤖 Robotics AI Assistant</div>
+    <div id="messages"></div>
+    <div id="inputArea">
+        <input type="text" id="userInput" placeholder="Ask about Robotics, Lessons, Projects...">
+        <button onclick="sendMsg()">Send</button>
+    </div>
+</div>
+
+<script>
+const messages = document.getElementById("messages");
+
+const lessons = [
+"Lesson 1: What is Robotics?",
+"Lesson 2: Types of Robots",
+"Lesson 3: Robot Parts (Sensors, Motors, Controllers)",
+"Lesson 4: Arduino Basics",
+"Lesson 5: Programming Robots",
+"Lesson 6: Sensors and Actuators",
+"Lesson 7: AI in Robotics",
+"Lesson 8: Line Following Robots",
+"Lesson 9: Obstacle Avoiding Robots",
+"Lesson 10: Future of Robotics"
+];
+
+const projects = [
+"Project 1: LED Blinking using Arduino",
+"Project 2: Line Following Robot",
+"Project 3: Obstacle Avoiding Robot",
+"Project 4: Bluetooth Controlled Robot",
+"Project 5: Smart Dustbin",
+"Project 6: Robotic Arm",
+"Project 7: Voice Controlled Robot",
+"Project 8: Home Automation System",
+"Project 9: Solar Powered Robot",
+"Project 10: AI Based Robot"
+];
+
+function addMsg(text, cls){
+    const div = document.createElement("div");
+    div.className = "msg " + cls;
+    div.innerText = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function sendMsg(){
+    const input = document.getElementById("userInput");
+    const userText = input.value.trim();
+    if(userText === "") return;
+
+    addMsg(userText, "user");
+    input.value = "";
+
+    setTimeout(()=>botReply(userText.toLowerCase()), 500);
+}
+
+function botReply(text){
+
+    // Block sexual content
+    const bannedWords = ["sex","porn","nude","xxx","kiss"];
+    for(let w of bannedWords){
+        if(text.includes(w)){
+            addMsg("Sorry ❌ I cannot answer sexual content questions.", "bot");
+            return;
+        }
+    }
+
+    // Creator question
+    if(text.includes("who made you") || text.includes("who created you")){
+        addMsg("I MADE BY DISAS. HE IS LIVE IN SRILANKA.", "bot");
+        return;
+    }
+
+    // Lessons
+    if(text.includes("lesson")){
+        addMsg("📘 Robotics Lessons:\n" + lessons.join("\n"), "bot");
+        return;
+    }
+
+    // Projects
+    if(text.includes("project")){
+        addMsg("🛠 Robotics Projects:\n" + projects.join("\n"), "bot");
+        return;
+    }
+
+    // Robotics general
+    if(text.includes("robot")){
+        addMsg("🤖 Robotics is the field of science that designs, builds and programs robots to help humans.", "bot");
+        return;
+    }
+
+    // Default
+    addMsg("I can help you learn Robotics, Lessons, Projects and answer general questions (No sexual content). Ask me 😊", "bot");
+}
+
+// Welcome message
+addMsg("Hello 👋 I am your Robotics AI Assistant. Ask me about Lessons, Projects or Robotics!", "bot");
+</script>
+
+</body>
+</html>
+<footer class="site-footer">
+  <button onclick="alert('Privacy Policy text here')">Privacy Policy</button>
+  <button onclick="alert('Terms & Conditions text here')">Terms & Conditions</button>
+  <p>© 2025 Robotics AI Assistant</p>
+</footer>
+.site-footer{
+    background:#020617;
+    padding:15px;
+    text-align:center;
+}
+.site-footer button{
+    margin:5px;
+    padding:8px 15px;
+}
